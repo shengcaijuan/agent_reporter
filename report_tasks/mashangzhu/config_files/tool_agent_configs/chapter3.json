@@ -1,0 +1,85 @@
+{
+    "chapter_id": 3,
+    "chapter_name": "毛利率与产品结构",
+    "tools": [
+        {
+            "attr_type": "variation",
+            "class_name_root": "Chapter3YearOnYearAvgPriceChangeRate",
+            "indicators_config": [
+                "多彩涂料产品均价", 
+                "其他外墙产品均价", 
+                "真石质感产品均价", 
+                "外墙乳胶漆产品均价", 
+                "其他内墙产品均价", 
+                "鲜呼吸产品均价",
+                "五合一产品均价", 
+                "二合一产品均价", 
+                "真时丽产品均价", 
+                "森家优选产品均价", 
+                "森家甄选产品均价", 
+                "防水涂料产品均价", 
+                "其他防水产品均价",
+                "艺术漆产品均价", 
+                "白胶产品均价", 
+                "发泡胶产品均价", 
+                "其他胶粘剂产品均价", 
+                "硅酮胶产品均价", 
+                "美缝剂产品均价",
+                "腻子粉产品均价", 
+                "界面及接缝产品均价", 
+                "辅材产品均价", 
+                "砂浆产品均价", 
+                "瓷砖铺贴产品均价", 
+                "其他产品均价"
+            ],
+            "tools_config": {
+                "tool_name": "chapter3_year_on_year_change_rate_analysis_tool",
+                "tool_description": "归因分析第三章节产品均价同比变化率情况。"
+            }
+        },
+        {
+            "attr_type": "variation",
+            "class_name_root": "Chapter3ProductIncomeRatio",
+            "indicators_config": [
+                "多彩涂料产品收入占比", 
+                "其他外墙产品收入占比", 
+                "真石质感产品收入占比", 
+                "外墙乳胶漆产品收入占比", 
+                "其他内墙产品收入占比", 
+                "鲜呼吸产品收入占比",
+                "五合一产品收入占比", 
+                "二合一产品收入占比", 
+                "真时丽产品收入占比", 
+                "森家优选产品收入占比", 
+                "森家甄选产品收入占比", 
+                "防水涂料产品收入占比", 
+                "其他防水产品收入占比",
+                "艺术漆产品收入占比", 
+                "白胶产品收入占比", 
+                "发泡胶产品收入占比", 
+                "其他胶粘剂产品收入占比", 
+                "硅酮胶产品收入占比", 
+                "美缝剂产品收入占比",
+                "腻子粉产品收入占比", 
+                "界面及接缝产品收入占比", 
+                "辅材产品收入占比", 
+                "砂浆产品收入占比", 
+                "瓷砖铺贴产品收入占比", 
+                "其他产品收入占比"
+            ],
+            "tools_config": {
+                "tool_name": "chapter3_product_income_ratio_analysis_tool",
+                "tool_description": "归因分析第三章节产品收入占比情况。"
+            }
+        },
+        {
+            "attr_type": "variation",
+            "class_name_root": "Chapter3GrossMarginAnalysis",
+            "indicators_config": ["毛利率"],
+            "tools_config": {
+                "tool_name": "chapter3_gross_margin_analysis_tool",
+                "tool_description": "归因分析第三章节毛利率同比变化情况。"
+            }
+        }
+    ]
+  }

@@ -1,0 +1,57 @@
+{
+    "chapters": [
+      {
+        "chapter_id": 1,
+        "chapter_name": "薪资绩效分析",
+        "chapter_type": "simple",
+        "has_tools": false,
+        "data_module": "1",
+        "description": "分析销售人员薪资绩效情况"
+      },
+      {
+        "chapter_id": 2,
+        "chapter_name": "销售势头分析",
+        "chapter_type": "with_tools",
+        "has_tools": true,
+        "data_module": "2",
+        "tool_count": 3,
+        "description": "分析销售势头及归因"
+      },
+      {
+        "chapter_id": 3,
+        "chapter_name": "毛利与产品结构分析",
+        "chapter_type": "with_tools",
+        "has_tools": true,
+        "data_module": "3",
+        "tool_count": 4,
+        "extra_features": ["trend_chart"],
+        "description": "分析毛利和产品结构"
+      },
+      {
+        "chapter_id": 4,
+        "chapter_name": "费用与应收账款风险分析",
+        "chapter_type": "with_tools",
+        "has_tools": true,
+        "data_module": "4",
+        "tool_count": 2,
+        "description": "分析费用和应收账款风险"
+      },
+      {
+        "chapter_id": 5,
+        "chapter_name": "销售行为分析",
+        "chapter_type": "simple",
+        "has_tools": false,
+        "data_module": "5",
+        "description": "分析销售行为数据"
+      },
+      {
+        "chapter_id": 6,
+        "chapter_name": "综合分析与建议",
+        "chapter_type": "summary",
+        "has_tools": false,
+        "data_module": null,
+        "summarize_chapters": [1, 2, 3, 4, 5],
+        "description": "综合前五章内容，提出建议"
+      }
+    ]
+  }

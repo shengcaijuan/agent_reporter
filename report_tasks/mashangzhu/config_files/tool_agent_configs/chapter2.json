@@ -1,0 +1,130 @@
+{
+    "chapter_id": 2,
+    "chapter_name": "收入分析",
+    "tools": [
+        {
+            "attr_type": "contribution",
+            "indicators_config": {
+                "parent_indicator": "收入",
+                "dimension": "核心产品分类维度",
+                "relation_type": "additive",
+                "child_indicators": [
+                    "多彩涂料产品",
+                    "其他外墙产品",
+                    "真石质感产品",
+                    "外墙乳胶漆产品",
+                    "其他内墙产品",
+                    "鲜呼吸产品",
+                    "五合一产品",
+                    "二合一产品",
+                    "真时丽产品",
+                    "森家优选产品",
+                    "森家甄选产品",
+                    "防水涂料产品",
+                    "其他防水产品", 
+                    "艺术漆产品",
+                    "白胶产品",
+                    "发泡胶产品",
+                    "其他胶粘剂产品",
+                    "硅酮胶产品",
+                    "美缝剂产品", 
+                    "腻子粉产品",
+                    "界面及接缝产品",
+                    "辅材产品",
+                    "砂浆产品",
+                    "瓷砖铺贴产品",
+                    "其他产品"
+                    ]
+            },
+            "tools_config": {
+                "tool_name": "income_core_product_dim_analysis_tool",
+                "tool_description": "归因分析收入指标核心产品分类维度情况。"
+            }
+        },
+        {
+            "attr_type": "variation",
+            "class_name_root": "Chapter2SalesVolume", 
+            "indicators_config": [
+                "多彩涂料产品销售量", 
+                "其他外墙产品销售量", 
+                "真石质感产品销售量", 
+                "外墙乳胶漆产品销售量", 
+                "其他内墙产品销售量", 
+                "鲜呼吸产品销售量", 
+                "五合一产品销售量", 
+                "二合一产品销售量", 
+                "真时丽产品销售量", 
+                "森家优选产品销售量", 
+                "森家甄选产品销售量", 
+                "防水涂料产品销售量", 
+                "其他防水产品销售量", 
+                "艺术漆产品销售量", 
+                "白胶产品销售量", 
+                "发泡胶产品销售量", 
+                "其他胶粘剂产品销售量", 
+                "硅酮胶产品销售量", 
+                "美缝剂产品销售量", 
+                "腻子粉产品销售量", 
+                "界面及接缝产品销售量", 
+                "辅材产品销售量", 
+                "砂浆产品销售量", 
+                "瓷砖铺贴产品销售量", 
+                "其他产品销售量"
+            ],
+            "tools_config": {
+                "tool_name": "sales_core_product_dim_analysis_tool",
+                "tool_description": "归因分析销售量指标核心产品分类维度情况。"
+            }
+        },
+        {
+            "attr_type": "contribution",
+            "indicators_config": {
+                "parent_indicator": "收入",
+                "dimension": "渠道维度",
+                "relation_type": "additive",
+                "child_indicators": [
+                    "传统渠道收入", 
+                    "马上住渠道收入", 
+                    "装企渠道收入", 
+                    "美墅美装渠道收入", 
+                    "艺术漆渠道收入"
+                ]
+            },
+            "tools_config": {
+                "tool_name": "income_channel_dim_analysis_tool",
+                "tool_description": "归因分析收入指标渠道维度情况。"
+            }
+        },
+        {
+            "attr_type": "contribution",
+            "indicators_config": {
+                "parent_indicator": "收入",
+                "dimension": "客户维度",
+                "relation_type": "multiplicative",
+                "child_indicators": [
+                    "客户数", 
+                    "客均收入"
+                ]
+            },
+            "tools_config": {
+                "tool_name": "income_customer_dim_analysis_tool",
+                "tool_description": "归因分析收入指标客户维度情况。"
+            }
+        },
+        {
+            "attr_type": "threshold",
+            "class_name_root": "Chapter2HighValueProductIncome",
+            "indicators_config": [
+                {
+                    "indicator": "高值品收入",
+                    "threshold_type": "TARGET_ACHIEVEMENT",
+                    "baseline": "高值品收入目标"
+                }
+            ],
+            "tools_config": {
+                "tool_name": "high_value_product_income_analysis_tool",
+                "tool_description": "分析高值品收入指标达成情况。"
+            }
+        }
+    ]
+  }

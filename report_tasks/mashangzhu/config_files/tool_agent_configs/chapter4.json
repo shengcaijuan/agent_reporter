@@ -1,0 +1,92 @@
+{
+    "chapter_id": 4,
+    "chapter_name": "费用与应收账款风险",
+    "tools": [
+        {
+            "attr_type": "contribution",
+            "indicators_config": {
+                "parent_indicator": "差旅费",
+                "dimension": "差旅费组成维度",
+                "relation_type": "additive",
+                "child_indicators": [
+                    "交通费", 
+                    "住宿费", 
+                    "车辆费", 
+                    "其他费用"
+                ]
+            },
+            "tools_config": {
+                "tool_name": "travel_expense_composition_analysis_tool",
+                "tool_description": "归因分析差旅费指标差旅费组成维度情况。"
+            }
+        },
+        {
+            "attr_type": "contribution",
+            "indicators_config": {
+                "parent_indicator": "差旅费",
+                "dimension": "差旅费动因维度",
+                "relation_type": "multiplicative",
+                "child_indicators": [
+                    "出差天数", 
+                    "每天花费金额"
+                ]
+            },
+            "tools_config": {
+                "tool_name": "travel_expense_motivation_analysis_tool",
+                "tool_description": "归因分析差旅费指标差旅费动因维度情况。"
+            }
+        },
+        {
+            "attr_type": "contribution",
+            "indicators_config": {
+                "parent_indicator": "日均差旅费",
+                "dimension": "费用组成维度",
+                "relation_type": "additive",
+                "child_indicators": [
+                    "日均交通费", 
+                    "日均住宿费", 
+                    "日均车辆费", 
+                    "日均其他费用"
+                ]
+            },
+            "tools_config": {
+                "tool_name": "travel_expense_daily_cost_expense_composition_analysis_tool",
+                "tool_description": "归因分析日均差旅费指标费用组成维度情况。"
+            }
+        },
+        {
+            "attr_type": "threshold",
+            "class_name_root": "Chapter4AccountsReceivable",
+            "indicators_config": [
+                {
+                    "indicator": "户均经销授信金额",
+                    "threshold_type": "AVERAGE_DEALER_CREDIT_LIMIT_PER_HOUSEHOLD"
+                },
+                {
+                    "indicator": "当月应收集中率",
+                    "threshold_type": "RECEIVABLES_CONCENTRATION_RATE"
+                },
+                {
+                    "indicator": "当月到期回款率",
+                    "threshold_type": "DUE_RECEIVABLES_COLLECTION_RATE"
+                },
+                {
+                    "indicator": "历史逾期回款率",
+                    "threshold_type": "HISTORICAL_OVERDUE_RECEIVABLES_COLLECTION_RATE"
+                },
+                {
+                    "indicator": "当年逾期概率",
+                    "threshold_type": "PROBABILITY_OF_OVERDUE_IN_THE_CURRENT_YEAR"
+                },
+                {
+                    "indicator": "逾期超过30天比例",
+                    "threshold_type": "RATIO_OF_OVERDUE_RECEIVABLES_EXCEEDING_30_DAYS"
+                }
+            ],
+            "tools_config": {
+                "tool_name": "chapter4_accounts_receivable_analysis_tool",
+                "tool_description": "归因分析第四章应收账款情况。"
+            }
+        }
+    ]
+  }

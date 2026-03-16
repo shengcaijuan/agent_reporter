@@ -1,0 +1,24 @@
+{
+    "tasks": [
+      {
+        "task_id": "mashangzhu",
+        "task_name": "马上住事业部销售报告",
+        "business_department": "马上住焕新事业部",
+        "description": "马上住事业部销售人员业绩分析报告",
+        "chapter_count": 6,
+        "created_at": "2026-01-01T00:00:00Z",
+        "updated_at": "2026-01-15T00:00:00Z",
+        "status": "active"
+      },
+      {
+        "task_id": "gongchengqi_sales",
+        "task_name": "工程漆事业部销售报告",
+        "business_department": "工程漆事业部",
+        "description": "工程漆事业部销售人员业绩分析报告",
+        "chapter_count": 5,
+        "created_at": "2026-02-01T00:00:00Z",
+        "updated_at": "2026-02-01T00:00:00Z",
+        "status": "active"
+      }
+    ]
+  }
