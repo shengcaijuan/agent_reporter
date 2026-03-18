@@ -1,0 +1,595 @@
+/* 三棵树智能报告系统 - 全局样式 */
+/* 主题色：#008425 (绿色) */
+
+:root {
+  --primary-color: #008425;
+  --primary-light: #e6f7e9;
+  --primary-dark: #006d1f;
+  --bg-color: #f5f7f5;
+  --white: #ffffff;
+  --text-color: #333333;
+  --text-secondary: #666666;
+  --border-color: #d9d9d9;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html, body, #root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial,
+    'Noto Sans', sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol',
+    'Noto Color Emoji';
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background-color: var(--bg-color);
+}
+
+/* ==================== 登录页面样式 ==================== */
+.login-container {
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  overflow: hidden;
+}
+
+/* 背景图片 */
+.login-container::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-image: url('/assets/background.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 0;
+}
+
+/* 毛玻璃蒙版 */
+.login-container::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(12px) saturate(180%);
+  -webkit-backdrop-filter: blur(12px) saturate(180%);
+  z-index: 1;
+}
+
+/* 半透明 3trees 水印 */
+.login-container .watermark {
+  position: absolute;
+  font-size: 200px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.08);
+  z-index: 1;
+  user-select: none;
+  pointer-events: none;
+  font-family: 'Arial Black', Arial, sans-serif;
+  letter-spacing: 20px;
+}
+
+.login-container .watermark-top {
+  top: 5%;
+  right: -100px;
+  transform: rotate(-15deg);
+}
+
+.login-container .watermark-bottom {
+  bottom: 5%;
+  left: -100px;
+  transform: rotate(15deg);
+}
+
+/* 登录卡片 */
+.login-card {
+  width: 420px;
+  padding: 48px 40px;
+  background: rgba(255, 255, 255, 0.95);
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.15),
+              0 8px 32px rgba(0, 132, 37, 0.2);
+  position: relative;
+  z-index: 2;
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.login-logo {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.login-logo img {
+  height: 48px;
+  object-fit: contain;
+}
+
+.login-title {
+  text-align: center;
+  color: var(--primary-color);
+  margin-bottom: 32px;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: 2px;
+}
+
+/* ==================== 主布局样式 ==================== */
+.main-layout {
+  min-height: 100vh;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.main-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: var(--primary-color) !important;
+  position: fixed;
+  top: 0;
+  right: 0;
+  z-index: 100;
+  overflow: hidden;
+}
+
+/* Header 半透明水印 */
+.main-header::before {
+  content: '3trees';
+  position: absolute;
+  right: 100px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 80px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.05);
+  letter-spacing: 10px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main-header .logo {
+  color: var(--white);
+  font-size: 18px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  position: relative;
+  z-index: 1;
+}
+
+.main-header .logo img {
+  height: 36px;
+  object-fit: contain;
+}
+
+.main-header .user-info {
+  color: var(--white);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  position: relative;
+  z-index: 1;
+}
+
+.main-sider {
+  background: #006d1f !important;
+  position: fixed !important;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  overflow: hidden;
+  z-index: 101;
+}
+
+/* Sider 半透明水印 */
+.main-sider::before {
+  content: '3trees';
+  position: absolute;
+  left: 50%;
+  bottom: 50px;
+  transform: translateX(-50%) rotate(-90deg);
+  font-size: 120px;
+  font-weight: 900;
+  color: rgba(255, 255, 255, 0.03);
+  letter-spacing: 15px;
+  user-select: none;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.main-sider .ant-menu {
+  background: transparent;
+  position: relative;
+  z-index: 1;
+}
+
+/* 子菜单样式 - 白色背景 */
+.main-sider .ant-menu-sub {
+  background: #ffffff !important;
+  border-radius: 4px;
+  margin: 4px 0;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.main-sider .ant-menu-sub .ant-menu-item {
+  color: var(--text-color) !important;
+  border-bottom: 1px solid #f0f0f0;
+  margin: 0 !important;
+  padding-left: 24px !important;
+}
+
+.main-sider .ant-menu-sub .ant-menu-item:last-child {
+  border-bottom: none;
+}
+
+.main-sider .ant-menu-sub .ant-menu-item:hover {
+  background: var(--primary-light) !important;
+  color: var(--primary-color) !important;
+}
+
+.main-sider .ant-menu-sub .ant-menu-item-selected {
+  background: var(--primary-light) !important;
+  color: var(--primary-color) !important;
+  font-weight: 600;
+}
+
+.main-sider .ant-menu-sub .ant-menu-item-selected::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 3px;
+  background: var(--primary-color);
+}
+
+/* 子菜单分隔线样式 */
+.main-sider .ant-menu-item-divider {
+  background: #e8e8e8 !important;
+  margin: 4px 8px !important;
+}
+
+/* 子菜单标题样式 */
+.main-sider .ant-menu-submenu-title {
+  color: rgba(255, 255, 255, 0.85) !important;
+}
+
+.main-sider .ant-menu-submenu-title:hover {
+  color: #fff !important;
+  background: rgba(255, 255, 255, 0.1) !important;
+}
+
+.main-sider .ant-menu-submenu-open > .ant-menu-submenu-title {
+  color: #fff !important;
+}
+
+.main-sider .ant-menu-item {
+  color: rgba(255, 255, 255, 0.85);
+}
+
+.main-sider .ant-menu-item-selected {
+  background: var(--primary-color) !important;
+  color: var(--white);
+}
+
+.main-sider .ant-menu-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  color: var(--white);
+}
+
+/* 侧边栏 Logo 区域 */
+.sider-logo {
+  height: 64px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 600;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  background: rgba(0, 0, 0, 0.1);
+}
+
+.sider-logo img {
+  height: 32px;
+  margin-right: 8px;
+}
+
+.main-content {
+  padding: 24px;
+  background: var(--bg-color);
+  margin-top: 64px;
+  height: calc(100vh - 64px);
+  overflow-y: auto;
+  overflow-x: hidden;
+  position: relative;
+}
+
+/* 内容区域半透明水印 */
+.main-content::before {
+  content: '3trees';
+  position: fixed;
+  right: 50px;
+  bottom: 100px;
+  font-size: 300px;
+  font-weight: 900;
+  color: rgba(0, 132, 37, 0.02);
+  letter-spacing: 30px;
+  user-select: none;
+  pointer-events: none;
+  z-index: 0;
+}
+
+.main-content > * {
+  position: relative;
+  z-index: 1;
+}
+
+/* ==================== 卡片样式 ==================== */
+.page-card {
+  background: var(--white);
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  padding: 24px;
+  margin-bottom: 24px;
+}
+
+.page-title {
+  font-size: 18px;
+  font-weight: 600;
+  color: var(--text-color);
+  margin-bottom: 20px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+}
+
+/* 侧边栏拖拽手柄样式 */
+.sider-resize-handle:hover {
+  background-color: #1890ff !important;
+}
+
+/* ==================== 统计卡片 ==================== */
+.stat-card {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.06);
+  transition: all 0.3s;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(0, 132, 37, 0.15);
+}
+
+.stat-card .stat-value {
+  font-size: 32px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.stat-card .stat-label {
+  font-size: 14px;
+  color: var(--text-secondary);
+  margin-top: 8px;
+}
+
+/* ==================== 章节选择标签 ==================== */
+.chapter-tabs {
+  margin-bottom: 24px;
+}
+
+.chapter-tabs .ant-tabs-tab {
+  padding: 12px 24px;
+}
+
+.chapter-tabs .ant-tabs-tab-active {
+  background: var(--primary-light);
+  border-radius: 6px 6px 0 0;
+}
+
+/* ==================== 配置编辑器 ==================== */
+.config-editor {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.config-editor .editor-header {
+  background: var(--primary-light);
+  padding: 12px 16px;
+  font-weight: 600;
+  color: var(--primary-color);
+}
+
+.config-editor .editor-content {
+  padding: 16px;
+}
+
+.config-editor textarea {
+  min-height: 150px;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+}
+
+/* ==================== 进度条样式 ==================== */
+.progress-bar {
+  margin: 20px 0;
+}
+
+.progress-stats {
+  display: flex;
+  justify-content: space-around;
+  margin-top: 16px;
+}
+
+.progress-stat-item {
+  text-align: center;
+}
+
+.progress-stat-item .value {
+  font-size: 24px;
+  font-weight: 600;
+}
+
+.progress-stat-item .label {
+  font-size: 12px;
+  color: var(--text-secondary);
+}
+
+/* ==================== 实时日志 ==================== */
+.log-container {
+  background: #1e1e1e;
+  border-radius: 8px;
+  padding: 16px;
+  max-height: 400px;
+  overflow-y: auto;
+  font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+  font-size: 13px;
+}
+
+.log-item {
+  padding: 4px 0;
+  display: flex;
+  gap: 12px;
+}
+
+.log-item .time {
+  color: #888;
+  flex-shrink: 0;
+}
+
+.log-item .level-info {
+  color: #4fc3f7;
+}
+
+.log-item .level-error {
+  color: #ff5252;
+}
+
+.log-item .level-warning {
+  color: #ffb74d;
+}
+
+.log-item .message {
+  color: #e0e0e0;
+}
+
+/* ==================== 报告预览 ==================== */
+.report-preview {
+  background: var(--white);
+  border-radius: 8px;
+  padding: 24px;
+  min-height: 600px;
+}
+
+.report-preview iframe {
+  width: 100%;
+  height: 800px;
+  border: none;
+}
+
+/* ==================== 工具配置表格 ==================== */
+.tool-config-table .ant-table-thead > tr > th {
+  background: var(--primary-light);
+  color: var(--primary-color);
+}
+
+.tool-config-table .ant-table-row:hover > td {
+  background: rgba(0, 132, 37, 0.05);
+}
+
+/* ==================== 响应式调整 ==================== */
+@media (max-width: 768px) {
+  .main-content {
+    padding: 16px;
+  }
+
+  .login-card {
+    width: 90%;
+    padding: 32px 24px;
+  }
+
+  .login-container .watermark {
+    font-size: 100px;
+  }
+
+  .stat-card {
+    margin-bottom: 16px;
+  }
+}
+
+/* ==================== 滚动条样式 ==================== */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+/* ==================== Ant Design 覆盖 ==================== */
+.ant-btn-primary {
+  background: var(--primary-color) !important;
+  border-color: var(--primary-color) !important;
+}
+
+.ant-btn-primary:hover {
+  background: var(--primary-dark) !important;
+  border-color: var(--primary-dark) !important;
+}
+
+.ant-tabs-tab.ant-tabs-tab-active .ant-tabs-tab-btn {
+  color: var(--primary-color) !important;
+}
+
+.ant-tabs-ink-bar {
+  background: var(--primary-color) !important;
+}
+
+.ant-menu-light .ant-menu-item-selected {
+  color: var(--primary-color) !important;
+  background: var(--primary-light) !important;
+}
+
+.ant-progress-bg {
+  background-color: var(--primary-color) !important;
+}
+
+.ant-tag-green {
+  background: var(--primary-light);
+  color: var(--primary-color);
+  border-color: var(--primary-color);
+}

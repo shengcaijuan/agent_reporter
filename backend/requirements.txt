@@ -1,0 +1,25 @@
+# FastAPI 核心
+fastapi>=0.104.0
+uvicorn[standard]>=0.24.0
+python-multipart>=0.0.6
+
+# 数据库
+sqlalchemy>=2.0.0
+alembic>=1.12.0
+
+# Pydantic
+pydantic>=2.0.0
+pydantic-settings>=2.0.0
+
+# JWT 认证
+python-jose[cryptography]>=3.3.0
+passlib[bcrypt]>=1.7.4
+
+# 异步 HTTP
+aiohttp>=3.9.0
+
+# OpenAI 客户端（用于 LLM 调用）
+openai>=1.0.0
+
+# 其他工具
+python-dotenv>=1.0.0

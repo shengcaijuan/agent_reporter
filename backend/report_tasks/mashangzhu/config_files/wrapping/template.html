@@ -1,0 +1,446 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>2025年经营分析报告</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --primary-color: #2E7D32; /* 深森林绿 */
+            --secondary-color: #66BB6A; /* 柔和草绿 */
+            --bg-color: #F1F8E9; /* 极浅绿背景 */
+            --text-main: #333333;
+            --text-light: #666666;
+            --danger: #D32F2F;
+            --white: #FFFFFF;
+            --border-radius: 8px;
+            --summary-blue: #E3F2FD; /* 总结-优势背景 */
+            --summary-red: #FFEBEE;  /* 总结-短板背景 */
+            --summary-orange: #FFF3E0; /* 总结-策略背景 */
+        }
+
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            -webkit-print-color-adjust: exact;
+            print-color-adjust: exact;
+        }
+
+        body {
+            font-family: "Microsoft YaHei", "Heiti SC", sans-serif;
+            background-color: #f0f2f5; 
+            color: var(--text-main);
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        /* 打印容器优化 */
+        .page {
+            width: 210mm;
+            margin: 0 auto;
+            padding: 15mm 15mm;
+            background: var(--white);
+            min-height: 100vh;
+        }
+
+        /* 页眉 */
+        header {
+            border-bottom: 3px solid var(--primary-color);
+            padding-bottom: 15px;
+            margin-bottom: 25px;
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-end;
+        }
+
+        h1 {
+            color: var(--primary-color);
+            font-size: 22px;
+            margin-bottom: 5px;
+        }
+
+        .subtitle {
+            font-size: 13px;
+            color: var(--text-light);
+            text-align: right;
+        }
+
+        h2 {
+            font-size: 17px;
+            color: var(--primary-color);
+            border-left: 5px solid var(--secondary-color);
+            padding-left: 12px;
+            margin-bottom: 15px;
+            margin-top: 30px;
+            display: flex;
+            align-items: center;
+            /* 标题和至少2行内容在一起，但允许跨页 */
+            page-break-after: avoid;
+            break-after: avoid;
+            orphans: 2;
+            widows: 2;
+        }
+        
+        h2 i { margin-right: 10px; }
+
+        h3 {
+            font-size: 15px;
+            margin: 10px 0;
+            font-weight: bold;
+            page-break-after: avoid;
+            break-after: avoid;
+        }
+
+        /* 网格布局 */
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+
+        /* 数据卡片 */
+        .stat-card {
+            background: var(--bg-color);
+            padding: 12px;
+            border-radius: var(--border-radius);
+            text-align: center;
+        }
+
+        .stat-value {
+            font-size: 20px;
+            font-weight: bold;
+            color: var(--primary-color);
+        }
+
+        .stat-label {
+            font-size: 12px;
+            color: var(--text-light);
+        }
+
+        /* 排名层级注释 */
+        .rank-note {
+            font-size: 10px;
+            color: var(--text-light);
+            margin-top: -8px;
+            text-align: right;
+            grid-column: 1 / 4;
+        }
+        /* 表格样式 - 改进分页控制 */
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 13px;
+            margin-bottom: 10px;
+            /* 表格允许跨页 */
+            page-break-inside: auto;
+            break-inside: auto;
+        }
+
+        /* 表头在每页重复显示 */
+        thead {
+            display: table-header-group;
+        }
+
+        /* 表体允许跨页 */
+        tbody {
+            display: table-row-group;
+        }
+
+        /* 表格行尽量不分页 */
+        tr {
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        th {
+            background-color: var(--primary-color);
+            color: white;
+            padding: 10px;
+            text-align: left;
+        }
+
+        td {
+            border: 1px solid #eee;
+            padding: 10px;
+        }
+
+        tr.highlight-row {
+            background-color: #f5f5f5;
+        }
+
+        /* 行动指南盒子 */
+        .action-guide {
+            background-color: #FFF8E1;
+            border-left: 4px solid #FFA000;
+            padding: 10px 15px;
+            font-size: 13px;
+            margin-top: 10px;
+            margin-bottom: 20px;
+            border-radius: 4px;
+            /* 行动指南尽量不分页 */
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+
+        /* 总结维度的彩色背景块 */
+        .summary-item {
+            padding: 12px;
+            border-radius: 6px;
+            margin-bottom: 10px;
+            /* 总结项尽量不分页 */
+            page-break-inside: avoid;
+            break-inside: avoid;
+        }
+        .summary-item h4 {
+            margin-bottom: 5px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .summary-item h4 i { margin-right: 8px; }
+
+        .item-advantage { background-color: var(--summary-blue); color: #0D47A1; }
+        .item-shortcoming { background-color: var(--summary-red); color: #B71C1C; }
+        .item-strategy { background-color: var(--summary-orange); color: #E65100; }
+
+        .tag {
+            display: inline-block;
+            background: rgba(255,255,255,0.5);
+            padding: 2px 10px;
+            border-radius: 4px;
+            margin: 0 5px 5px 0;
+            font-size: 12px;
+            font-weight: bold;
+        }
+
+        .risk-text { color: var(--danger); font-weight: bold; }
+        .positive-text { color: var(--primary-color); font-weight: bold; }
+
+        @media print {
+            body { 
+                background: none;
+                orphans: 3;
+                widows: 3;
+            }
+            .page { 
+                width: 100%; 
+                margin: 0; 
+                box-shadow: none; 
+                padding: 0mm 0mm; 
+            }
+            /* 确保表格表头在每页重复 */
+            thead {
+                display: table-header-group;
+            }
+            tbody {
+                display: table-row-group;
+            }
+        }
+    </style>
+</head>
+
+<body>
+<div class="page">
+    <header>
+        <div>
+            <h1>XX 经营部销售经理 XXX</h1>
+            <div style="font-size: 16px; color: var(--primary-color);">2025年经营分析报告</div>
+        </div>
+        <div class="subtitle">
+            <p>日期: 2026/01/13</p>
+            <p>范围: 2025年度</p>
+        </div>
+    </header>
+
+    <h2><i class="fas fa-chart-line"></i> 一、绩效分析</h2>
+    <div class="grid-3">
+        <div class="stat-card">
+            <div class="stat-label">销量排名 (经营部)</div>
+            <div class="stat-value">15 <span style="font-size:14px; color:#666">/ 300</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">绩效排名</div>
+            <div class="stat-value">20 <span style="font-size:14px; color:#666">/ 300</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">利润排名</div>
+            <div class="stat-value">60 <span style="font-size:14px; color:#666">/ 300</span></div>
+        </div>
+        <div class="rank-note">(排名层级：省区层级)</div>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th width="25%">考核项目</th>
+                <th width="25%">完成情况</th>
+                <th>关键详情</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="highlight-row">
+                <td><strong>绩效总分</strong><br>(不含其他奖惩)</td>
+                <td><strong>108分</strong></td>
+                <td>主要扣分点在<strong>艺术漆、网点、马上住总销量</strong>。</td>
+            </tr>
+            <tr>
+                <td>艺术漆</td>
+                <td>达成率：* %</td>
+                <td>月均分数：* 分，全年总扣分：* 分，属于不及格水平</td>
+            </tr>
+            <tr class="highlight-row">
+                <td>网点</td>
+                <td>达成率：* %</td>
+                <td>月均分数：* 分，全年总扣分：* 分，属于合格水平</td>
+            </tr>
+            <tr>
+                <td>马上住总销量</td>
+                <td>达成率：* %</td>
+                <td>月均分数：* 分，全年总扣分：* 分，属于优秀水平</td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="action-guide">
+        <strong><i class="fas fa-lightbulb"></i> 行动指南：</strong> 针对绩效最差指标制定月度改善计划。
+    </div>
+
+    <h2><i class="fas fa-coins"></i> 二、收入分析</h2>
+    <div style="display: flex; justify-content: space-between; background: var(--bg-color); padding: 12px; border-radius: 6px; margin-bottom: 15px;">
+        <div>目标: <strong>* 万</strong></div>
+        <div>达成: <strong>* 万</strong></div>
+        <div>达成率: <span class="positive-text">* %</span></div>
+        <div>同比: <span class="positive-text">+* %</span></div>
+    </div>
+    <div style="display: grid; grid-template-columns: 1fr; gap: 20px;">
+        <div>
+            <h3 style="color:var(--primary-color)">正向指标</h3>
+            <p style="font-size: 13px;">1. 艺术漆（收入X元）增长 83%<br>2. 五合一（收入X元）增长 137%<br>3. 产销客户数稳步增加</p>
+        </div>
+        <div>
+            <h3 style="color:var(--danger)">风险指标</h3>
+            <p style="font-size: 13px;">1. XX产品销量下滑<br>2. 传统渠道收入（X元）增长50%<br>3. 核心客户流失风险</p>
+        </div>
+    </div>
+
+    <h2><i class="fas fa-balance-scale"></i> 三、毛利率与产品结构</h2>
+    <div class="grid-3">
+        <div class="stat-card">
+            <div class="stat-label">毛利率（20%）排名</div>
+            <div class="stat-value">3 <span style="font-size:14px; color:#666">/ 6</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">高值品收入占比（40%）排名</div>
+            <div class="stat-value">3 <span style="font-size:14px; color:#666">/ 6</span></div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-label">艺术漆收入占比（10%）排名</div>
+            <div class="stat-value">3 <span style="font-size:14px; color:#666">/ 6</span></div>
+        </div>
+        
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th width="20%">指标</th>
+                <th>详情</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td width="25%"><strong>价格变动</strong><br>(同比，折后返利前均价)</td>
+                <td>
+                    <strong>价格下降：</strong>XX产品下降 * 元/KG；<br>
+                    <strong>价格上升：</strong>XX产品增长 * 元/KG；
+                </td>
+            </tr>
+            <tr>
+                <td><strong>结构变化</strong><br>(同比)</td>
+                <td>高值品占比同比下降 *%，艺术漆占比稳中有升</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="action-guide">
+        <strong><i class="fas fa-lightbulb"></i> 行动指南：</strong> 注意XX产品均价控制。
+    </div>
+
+    <h2><i class="fas fa-exclamation-triangle"></i> 四、费用与应收账款风险</h2>
+    <div style="margin-bottom: 15px;">
+        <p style="font-size: 13px;"><strong>差旅分析：</strong> 本年累计出差 * 天，总费用 ** 元（同比 +*%）。</p>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th width="20%">指标</th>
+                <th width="12%">完成情况</th>
+                <th>风险/问题</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>应收账款</td>
+                <td>800万</td>
+                <td>
+                    1. 户均授信金额达到XX万，已较大/极大程度超过事业部平均水平。<br>
+                    2. 应收账款较为/极为集中在某些客户，一旦逾期直接影响整体回款。
+                </td>
+            </tr>
+            <tr>
+                <td>逾期欠款（含诉讼）</td>
+                <td>240万</td>
+                <td>
+                    1. 当月到期回款率为XX，按时回款不佳/较差。<br>
+                    2. 历史逾期回款率为XX，逾期清收力度不足/较差。<br>
+                    3. 当年逾期概率达到XX，逾期较/极为频发。<br>
+                    <span class="risk-text">4. 逾期超30天的欠款占应收账款的比例为XX，逾期账龄拉长，应收质量恶化/极差。</span>
+                </td>
+            </tr>
+            <tr>
+                <td>当年增加减值损失</td>
+                <td>80万</td>
+                <td>
+                    账龄变动增加减值XX万、规模变动增加减值XX万、诉讼变动增加减值XX万（非0的进行列示）。
+                </td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h2><i class="fas fa-user-clock"></i> 五、行销行为诊断</h2>
+    <p style="font-size: 13px;">
+        • <strong>拜访效率：</strong> 月度均未达 70 次考核要求，存在扣分。<br>
+        • <strong>时间分布：</strong> 拜访/开发时间比为 5:1，意向客户开发投入不足。
+    </p>
+    <div class="action-guide">
+        <strong><i class="fas fa-running"></i> 行动指南：</strong> 确保日均有效拜访 ≥ 4 次，月度必须达标。
+    </div>
+
+    <h2><i class="fas fa-flag"></i> 六、总结与策略</h2>
+    
+    <div class="summary-item item-advantage">
+            <h4><i class="fas fa-thumbs-up"></i> 核心优势</h4>
+            <span class="tag">销量大幅增长 58%</span>
+            <span class="tag">五合一产品爆发</span>
+            <span class="tag">绩效稳居前 30%</span>
+        </div>
+
+        <div class="summary-item item-shortcoming">
+            <h4><i class="fas fa-user-shield"></i> 关键短板</h4>
+            <span class="tag">毛利率受价格波动侵蚀</span>
+            <span class="tag">应收账款积压严重</span>
+            <span class="tag">招商进度停滞</span>
+        </div>
+
+        <div class="summary-item item-strategy">
+            <h4><i class="fas fa-bullseye"></i> 核心策略</h4>
+            <p style="font-size: 13px; margin-left: 24px;">
+                1. <strong>产品：</strong> 强推康家五合一与艺术漆组合，拉动毛利。<br>
+                2. <strong>风控：</strong> 针对高危客户切换“现款现货”模式，启动法律清收。<br>
+                3. <strong>客户：</strong> 关停长期低产出的授信客户，释放授信资源给高效客户。
+            </p>
+        </div>
+</div>
+
+</body>
+</html>
