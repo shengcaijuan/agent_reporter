@@ -1,0 +1,26 @@
+[
+  {
+    "type": "api",
+    "name": "马上住焕新事业部单兵分析报告",
+    "description": "三棵树BI数据接口",
+    "config": {
+      "base_url": "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi",
+      "auth_type": "url_param",
+      "auth_key_name": "apikey",
+      "api_key": "05b65dfd5ee44f2a21f2312372b76f75",
+      "timeout": 15,
+      "ssl_verify": false
+    },
+    "request_params": {
+      "job_id_field": "ZEMPLOYEE",
+      "time_field": "CALMONTH",
+      "module_field": "MOUDLE",
+      "extra_params": {}
+    },
+    "is_default": false,
+    "is_active": true,
+    "id": "default",
+    "created_at": "2026-03-18T14:22:54.321232",
+    "updated_at": "2026-03-18T14:47:43.859369"
+  }
+]

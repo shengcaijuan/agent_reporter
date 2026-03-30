@@ -21,6 +21,9 @@ import ModelConfig from './pages/ModelConfig'
 // 模板库页面
 import TemplateLibrary from './pages/TemplateLibrary'
 
+// 数据源管理页面
+import DataSourcePage from './pages/DataSourcePage'
+
 function App() {
   const { isAuthenticated } = useAuthStore()
 
@@ -56,6 +59,8 @@ function App() {
           <Route path="reports/:reportId" element={<ReportDetail />} />
           {/* 模板库路由 */}
           <Route path="templates" element={<TemplateLibrary />} />
+          {/* 数据源管理路由 */}
+          <Route path="data-sources" element={<DataSourcePage />} />
           {/* 模型配置路由 */}
           <Route path="model-config" element={<ModelConfig />} />
         </Route>

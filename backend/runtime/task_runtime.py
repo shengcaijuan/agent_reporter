@@ -15,6 +15,7 @@ from tools.attribution.contribution import AttributionRelationType
 from tools.attribution.threshold import ThresholdType
 
 from runtime.config import TaskRuntime, ChapterRuntime, GuidelineConfig, WrappingRequirementsConfig
+from app.schemas.data_source import DataSource
 
 
 class TaskRuntimeLoader:
@@ -57,11 +58,12 @@ class TaskRuntimeLoader:
             chapter_id = ch_config["chapter_id"]
 
             # 加载章节guideline（优先JSON，回退MD）
-            guideline = cls._load_guideline(
+            guideline_result = cls._load_guideline(
                 task_dir=task_dir,
                 chapter_id=chapter_id,
                 report_intro=report_intro
             )
+            guideline = guideline_result
 
             # 加载工具配置
             tool_configs = []
@@ -85,6 +87,15 @@ class TaskRuntimeLoader:
             )
             chapters.append(chapter)
 
+        # 解析数据源配置
+        data_source = None
+        raw_data_source = task_config.get("data_source", {})
+        if raw_data_source and raw_data_source.get("config"):
+            try:
+                data_source = DataSource(**raw_data_source)
+            except Exception as e:
+                print(f"解析数据源配置失败: {e}")
+
         return TaskRuntime(
             task_id=task_id,
             task_name=task_config["task_name"],
@@ -92,7 +103,7 @@ class TaskRuntimeLoader:
             description=task_config.get("description", ""),
             report_intro=report_intro,
             chapters=chapters,
-            data_source=task_config.get("data_source", {}),
+            data_source=data_source,
             report_structure=task_config.get("report_structure", {}),
             lay_out_requirements=lay_out_requirements
         )
@@ -210,7 +221,7 @@ class TaskRuntimeLoader:
             report_intro: 报告介绍（共享前缀）
 
         Returns:
-            完整的markdown格式guideline
+            str: 完整的markdown格式guideline
         """
         # 优先尝试加载JSON格式
         json_path = task_dir / f"guidelines/chapter{chapter_id}.json"

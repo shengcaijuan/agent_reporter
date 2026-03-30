@@ -4,42 +4,85 @@ import json
 from typing import Optional, Dict, Any, List
 from aiohttp import ClientTimeout, ClientSession
 
+# 默认配置（向后兼容）
+DEFAULT_API_KEY = "05b65dfd5ee44f2a21f2312372b76f75"
+DEFAULT_BASE_URL = "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi"
+
+
 async def fetch_raw_data(
-        job_id: str,        
+        job_id: str,
         time: str,
         module: int,
-        api_key: str = "05b65dfd5ee44f2a21f2312372b76f75",
-        base_url: str = "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi",
+        data_source_config: Optional[Dict[str, Any]] = None,
+        api_key: str = DEFAULT_API_KEY,
+        base_url: str = DEFAULT_BASE_URL,
         session: Optional[ClientSession] = None,
         timeout: int = 15
 ) -> Dict[str, Any]:
     """
-    获取员工指标数据
+    获取员工指标数据（支持动态数据源配置）
 
     :param job_id: 销售工号
     :param time: 计算月份 (CALMONTH)，格式为 YYYYMM
     :param module: 模块标识 (MOUDLE)，如1、2、3、4、5
-    :param api_key: API密钥，默认已提供
-    :param base_url: 接口基础URL，默认已提供
+    :param data_source_config: 数据源配置（优先使用），包含:
+        - config: {base_url, api_key, auth_type, auth_key_name, timeout, ssl_verify}
+        - request_params: {job_id_field, time_field, module_field}
+    :param api_key: API密钥（向后兼容，当未提供data_source_config时使用）
+    :param base_url: 接口基础URL（向后兼容）
     :param session: 可选的 aiohttp ClientSession，用于复用连接
     :param timeout: 请求超时时间（秒），默认15秒
     :return: 返回API响应的JSON数据或错误信息
     """
 
-    # 构造完整URL
-    full_url = f"{base_url}?apikey={api_key}"
+    # 从数据源配置获取参数（如果提供）
+    if data_source_config:
+        config = data_source_config.get("config", {})
+        params = data_source_config.get("request_params", {})
+
+        actual_base_url = config.get("base_url", base_url)
+        actual_api_key = config.get("api_key", api_key)
+        actual_timeout = config.get("timeout", timeout)
+        ssl_verify = config.get("ssl_verify", False)
+
+        # 获取请求参数字段名
+        job_id_field = params.get("job_id_field", "ZEMPLOYEE")
+        time_field = params.get("time_field", "CALMONTH")
+        module_field = params.get("module_field", "MOUDLE")
+
+        # 获取认证方式
+        auth_type = config.get("auth_type", "url_param")
+        auth_key_name = config.get("auth_key_name", "apikey")
+    else:
+        actual_base_url = base_url
+        actual_api_key = api_key
+        actual_timeout = timeout
+        ssl_verify = False
+        job_id_field = "ZEMPLOYEE"
+        time_field = "CALMONTH"
+        module_field = "MOUDLE"
+        auth_type = "url_param"
+        auth_key_name = "apikey"
+
+    # 构建完整URL（根据认证方式）
+    if auth_type == "url_param":
+        full_url = f"{actual_base_url}?{auth_key_name}={actual_api_key}"
+    else:
+        full_url = actual_base_url
 
     # 请求体
     request_body = {
-        "ZEMPLOYEE": job_id,
-        "CALMONTH": time,
-        "MOUDLE": str(module)
+        job_id_field: job_id,
+        time_field: time,
+        module_field: str(module)
     }
 
     # 请求头
-    headers = {
-        "Content-Type": "application/json"
-    }
+    headers = {"Content-Type": "application/json"}
+    if auth_type == "header":
+        headers[auth_key_name] = actual_api_key
+    elif auth_type == "bearer":
+        headers["Authorization"] = f"Bearer {actual_api_key}"
 
     # 是否由外部管理 session（用于批量请求时复用连接）
     should_close_session = session is None
@@ -51,8 +94,8 @@ async def fetch_raw_data(
             url=full_url,
             json=request_body,
             headers=headers,
-            timeout=ClientTimeout(total=timeout),
-            ssl=False  # 注：生产环境开启SSL验证, 设置为True
+            timeout=ClientTimeout(total=actual_timeout),
+            ssl=ssl_verify
         ) as response:
 
             # 解析JSON响应
@@ -74,11 +117,13 @@ async def fetch_raw_data(
 
 async def fetch_raw_data_batch(
         requests: List[Dict[str, Any]],
+        data_source_config: Optional[Dict[str, Any]] = None,
         concurrent_limit: int = 5
 ) -> Dict[int, Dict[str, Any]]:
-    """批量获取原始数据（复用同一个 ClientSession 提高性能）
+    """批量获取原始数据（支持动态数据源配置）
 
     :param requests: 请求列表，每个元素包含 job_id, time, module
+    :param data_source_config: 数据源配置
     :param concurrent_limit: 并发限制，默认5
     :return: 返回响应列表
         数据异常（空白）返回：{
@@ -103,6 +148,7 @@ async def fetch_raw_data_batch(
                 job_id=req["job_id"],
                 time=req["time"],
                 module=req["module"],
+                data_source_config=data_source_config,
                 session=session
             )
 

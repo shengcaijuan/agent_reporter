@@ -3,7 +3,7 @@ API 路由汇总
 """
 from fastapi import APIRouter
 
-from app.api.endpoints import health, auth, tasks, reports, model_config, templates
+from app.api.endpoints import health, auth, tasks, reports, model_config, templates, data_sources
 
 api_router = APIRouter()
 
@@ -14,3 +14,4 @@ api_router.include_router(tasks.router)
 api_router.include_router(reports.router)
 api_router.include_router(model_config.router)
 api_router.include_router(templates.router)
+api_router.include_router(data_sources.router)

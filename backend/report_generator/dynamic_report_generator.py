@@ -9,8 +9,10 @@
 4. 支持动态加载guideline
 """
 import asyncio
+import json
+import os
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 
 from runtime.task_runtime import TaskRuntimeLoader
 from report_generator.generic_chapter_generator import GenericChapterGenerator, ChapterResult
@@ -127,7 +129,14 @@ class DynamicReportGenerator:
             self.logger.info("没有需要获取数据的章节")
             return
 
-        # 构建请求列表（data_module 与 chapter_id 一致）
+        self.logger.info(f"开始批量获取 {len(chapters_needing_data)} 个章节的数据")
+
+        # 获取任务级数据源配置
+        data_source_config = None
+        if self.task_runtime.data_source:
+            data_source_config = self.task_runtime.data_source.model_dump()
+
+        # 构建请求列表
         requests = [
             {
                 "job_id": self.sale_id,
@@ -137,12 +146,14 @@ class DynamicReportGenerator:
             for ch in chapters_needing_data
         ]
 
-        self.logger.info(f"开始批量获取 {len(requests)} 个章节的数据")
-
         # 批量获取数据 (返回字典 {1: result1, 2: result2, ...})
-        data_dict = await fetch_raw_data_batch(requests, concurrent_limit=5)
+        data_dict = await fetch_raw_data_batch(
+            requests,
+            concurrent_limit=5,
+            data_source_config=data_source_config
+        )
 
-        # 存储数据 - 按索引顺序获取对应的数据
+        # 存储数据
         for i, ch in enumerate(chapters_needing_data, 1):
             raw_data = data_dict.get(i, {})
             self.chapter_data[ch.chapter_id] = raw_data

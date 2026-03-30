@@ -1,7 +1,13 @@
 """运行时配置"""
 
+import sys
+import os
 from pydantic import BaseModel, Field
 from typing import Dict, Any, List, Optional
+
+# 添加项目根目录到路径以导入 app.schemas
+sys.path.insert(0, os.path.join(os.path.dirname(__file__), '..'))
+from app.schemas.data_source import DataSource
 
 
 # 默认Role（可被任务配置覆盖）
@@ -142,7 +148,7 @@ class TaskRuntime(BaseModel):
     description: str
     report_intro: str
     chapters: List[ChapterRuntime]
-    data_source: Dict[str, Any] = Field(default_factory=dict)
+    data_source: Optional[DataSource] = Field(None, description="数据源配置")
     report_structure: Dict[str, Any] = Field(default_factory=dict)
     lay_out_requirements: str = ""  # 布局要求
 

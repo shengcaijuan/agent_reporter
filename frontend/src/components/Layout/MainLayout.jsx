@@ -13,6 +13,7 @@ import {
   PlusOutlined,
   FolderOpenOutlined,
   CloudServerOutlined,
+  DatabaseOutlined,
   SyncOutlined,
   CheckCircleOutlined,
   PauseCircleOutlined,
@@ -179,6 +180,11 @@ function MainLayout() {
       icon: <SettingOutlined />,
       label: '配置管理',
       children: configSubMenu
+    },
+    {
+      key: '/data-sources',
+      icon: <DatabaseOutlined />,
+      label: '数据配置'
     },
     {
       key: '/generation',

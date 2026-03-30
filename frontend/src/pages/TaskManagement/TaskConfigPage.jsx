@@ -11,6 +11,7 @@ import { taskApi } from '../../api/task'
 import ReportInfoSection from '../../components/TaskConfig/ReportInfoSection'
 import ChapterConfigCard from '../../components/TaskConfig/ChapterConfigCard'
 import WrappingConfigSection from '../../components/TaskConfig/WrappingConfigSection'
+import DataSourceConfig from '../../components/TaskConfig/DataSourceConfig'
 import useTaskStore from '../../stores/taskStore'
 
 const { Title, Text } = Typography
@@ -273,6 +274,9 @@ function TaskConfigPage() {
           taskId={taskId}
           chapters={chapters}
         />
+
+        {/* 数据源配置 */}
+        <DataSourceConfig taskId={taskId} />
       </Spin>
     </div>
   )

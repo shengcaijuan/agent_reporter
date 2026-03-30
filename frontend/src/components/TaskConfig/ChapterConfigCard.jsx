@@ -5,7 +5,7 @@ import {
 } from 'antd'
 import {
   DeleteOutlined, PlusOutlined, SettingOutlined, ToolOutlined,
-  FileTextOutlined, FormatPainterOutlined, DatabaseOutlined, InfoCircleOutlined
+  FileTextOutlined, FormatPainterOutlined
 } from '@ant-design/icons'
 import { taskApi } from '../../api/task'
 import SectionConfigItem from './SectionConfigItem'
@@ -20,24 +20,6 @@ const CHAPTER_TYPE_MAP = {
   simple: '简单章节',
   with_tools: '带工具章节',
   summary: '总结章节'
-}
-
-// 事业部选项
-const BUSINESS_UNIT_OPTIONS = [
-  { value: 'mashangzhu', label: '马上住焕新事业部', disabled: false },
-  { value: 'gongchengqi', label: '工程漆事业部', disabled: true },
-  { value: 'fangshiqi', label: '仿石漆事业部', disabled: true }
-]
-
-// 数据接口选项
-const DATA_INTERFACE_OPTIONS = {
-  'mashangzhu': [
-    { value: 'performance', label: '绩效分析' },
-    { value: 'sales_dynamics', label: '销售动能分析' },
-    { value: 'gross_margin', label: '毛利率与产品结构' },
-    { value: 'receivables', label: '费用与应收账款风险' },
-    { value: 'marketing_behavior', label: '行销行为诊断' }
-  ]
 }
 
 // 防抖hook
@@ -81,22 +63,10 @@ function ChapterConfigCard({
   const [tools, setTools] = useState(initialTools || [])
   const [activeKeys, setActiveKeys] = useState(['sections'])
 
-  // 数据配置状态
-  const [dataConfig, setDataConfig] = useState({
-    business_unit: initialConfig?.data_config?.business_unit || undefined,
-    data_interface: initialConfig?.data_config?.data_interface || undefined
-  })
-
   // 当外部配置变化时更新
   useEffect(() => {
     if (initialConfig) {
       setConfig(initialConfig)
-      if (initialConfig.data_config) {
-        setDataConfig({
-          business_unit: initialConfig.data_config.business_unit || undefined,
-          data_interface: initialConfig.data_config.data_interface || undefined
-        })
-      }
     }
   }, [initialConfig])
 
@@ -121,16 +91,7 @@ function ChapterConfigCard({
     setLoading(true)
     try {
       const response = await taskApi.getChapterConfig(taskId, chapter.chapter_id)
-      const configData = response.data || {}
-      setConfig(configData)
-
-      // 初始化数据配置
-      if (configData.data_config) {
-        setDataConfig({
-          business_unit: configData.data_config.business_unit || undefined,
-          data_interface: configData.data_config.data_interface || undefined
-        })
-      }
+      setConfig(response.data || {})
     } catch (error) {
       console.error('加载章节配置失败:', error)
     } finally {
@@ -277,26 +238,6 @@ function ChapterConfigCard({
     debouncedSave({ style_requirements: requirements })
   }
 
-  // 数据配置 - 事业部变化处理
-  const handleBusinessUnitChange = (value) => {
-    const newDataConfig = {
-      business_unit: value,
-      data_interface: undefined
-    }
-    setDataConfig(newDataConfig)
-    saveChapterConfig({ data_config: newDataConfig }, false)
-  }
-
-  // 数据配置 - 数据接口变化处理
-  const handleDataInterfaceChange = (value) => {
-    const newDataConfig = {
-      ...dataConfig,
-      data_interface: value
-    }
-    setDataConfig(newDataConfig)
-    saveChapterConfig({ data_config: newDataConfig }, false)
-  }
-
   if (loading) {
     return (
       <Card style={{ marginBottom: 16 }}>
@@ -350,66 +291,6 @@ function ChapterConfigCard({
         onChange={(keys) => setActiveKeys(keys)}
         bordered={false}
       >
-        {/* 数据配置 */}
-        <Panel
-          header={
-            <span>
-              <DatabaseOutlined style={{ marginRight: 8 }} />
-              数据配置
-            </span>
-          }
-          key="data"
-        >
-          <Space size="large">
-            <div>
-              <span style={{ marginRight: 8 }}>事业部:</span>
-              <Select
-                value={dataConfig.business_unit}
-                onChange={handleBusinessUnitChange}
-                style={{ width: 200 }}
-                placeholder="请选择事业部"
-              >
-                {BUSINESS_UNIT_OPTIONS.map(option => (
-                  <Option
-                    key={option.value}
-                    value={option.value}
-                    disabled={option.disabled}
-                  >
-                    {option.disabled ? (
-                      <Tooltip title="数据接口未开发">
-                        <span style={{ color: '#bfbfbf' }}>{option.label}</span>
-                      </Tooltip>
-                    ) : (
-                      option.label
-                    )}
-                  </Option>
-                ))}
-              </Select>
-            </div>
-            <div>
-              <span style={{ marginRight: 8 }}>数据接口:</span>
-              <Select
-                value={dataConfig.data_interface}
-                onChange={handleDataInterfaceChange}
-                style={{ width: 200 }}
-                placeholder="请先选择事业部"
-                disabled={!dataConfig.business_unit}
-              >
-                {dataConfig.business_unit && DATA_INTERFACE_OPTIONS[dataConfig.business_unit]?.map(option => (
-                  <Option key={option.value} value={option.value}>
-                    {option.label}
-                  </Option>
-                ))}
-              </Select>
-              {!dataConfig.business_unit && (
-                <Tooltip title="请先选择事业部">
-                  <InfoCircleOutlined style={{ marginLeft: 8, color: '#bfbfbf' }} />
-                </Tooltip>
-              )}
-            </div>
-          </Space>
-        </Panel>
-
         {/* 小节配置 */}
         <Panel
           header={
