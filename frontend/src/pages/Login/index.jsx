@@ -24,11 +24,6 @@ function Login() {
       <span className="watermark watermark-bottom">Demo</span>
 
       <div className="login-card">
-        {/* Logo */}
-        <div className="login-logo">
-          <img src="/assets/logo.svg" alt="Logo" />
-        </div>
-
         <h1 className="login-title">智能销售报告系统</h1>
 
         <Form
