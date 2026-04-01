@@ -20,16 +20,16 @@ function Login() {
   return (
     <div className="login-container">
       {/* 半透明水印 */}
-      <span className="watermark watermark-top">3trees</span>
-      <span className="watermark watermark-bottom">3trees</span>
+      <span className="watermark watermark-top">Demo</span>
+      <span className="watermark watermark-bottom">Demo</span>
 
       <div className="login-card">
         {/* Logo */}
         <div className="login-logo">
-          <img src="/assets/logo.svg" alt="三棵树" />
+          <img src="/assets/logo.svg" alt="Logo" />
         </div>
 
-        <h1 className="login-title">三棵树智能销售报告系统</h1>
+        <h1 className="login-title">智能销售报告系统</h1>
 
         <Form
           form={form}
@@ -70,7 +70,7 @@ function Login() {
           </Form.Item>
         </Form>
         <div style={{ textAlign: 'center', color: '#999', fontSize: 12 }}>
-          © 2026 三棵树涂料股份有限公司 | 技术支持：帆软软件
+          © 2026 演示公司
         </div>
       </div>
     </div>

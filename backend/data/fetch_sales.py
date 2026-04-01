@@ -73,7 +73,11 @@ class SalesConigFetcher:
         }
         """
 
-        post = "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getAiEmployeeOrg?apikey=05b65dfd5ee44f2a21f2312372b76f75"
+        # 从环境变量读取API配置
+        import os
+        api_base_url = os.getenv("DATA_API_BASE_URL", "https://api.example.com/data")
+        api_key = os.getenv("DATA_API_KEY", "your-api-key-here")
+        post = f"{api_base_url}?apikey={api_key}"
 
         headers = {
             "Content-Type": "application/json"

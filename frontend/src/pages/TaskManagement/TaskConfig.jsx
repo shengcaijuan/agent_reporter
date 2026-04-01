@@ -208,7 +208,7 @@ function TaskConfig() {
           <TextArea
             rows={15}
             placeholder={`# 报告概述
-本报告为三棵树XX事业部销售人员月度业绩分析报告...
+本报告为XX事业部销售人员月度业绩分析报告...
 
 # 分析目标
 1. 全面评估销售人员当月业绩表现

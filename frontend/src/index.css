@@ -1,4 +1,4 @@
-/* 三棵树智能报告系统 - 全局样式 */
+/* 智能报告系统 - 全局样式 */
 /* 主题色：#008425 (绿色) */
 
 :root {
@@ -71,7 +71,7 @@ body {
   z-index: 1;
 }
 
-/* 半透明 3trees 水印 */
+/* 半透明水印 */
 .login-container .watermark {
   position: absolute;
   font-size: 200px;
@@ -151,7 +151,7 @@ body {
 
 /* Header 半透明水印 */
 .main-header::before {
-  content: '3trees';
+  content: 'Demo';
   position: absolute;
   right: 100px;
   top: 50%;
@@ -202,7 +202,7 @@ body {
 
 /* Sider 半透明水印 */
 .main-sider::before {
-  content: '3trees';
+  content: 'Demo';
   position: absolute;
   left: 50%;
   bottom: 50px;
@@ -326,7 +326,7 @@ body {
 
 /* 内容区域半透明水印 */
 .main-content::before {
-  content: '3trees';
+  content: 'Demo';
   position: fixed;
   right: 50px;
   bottom: 100px;

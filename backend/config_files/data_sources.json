@@ -1,13 +1,13 @@
 [
   {
     "type": "api",
-    "name": "马上住焕新事业部单兵分析报告",
-    "description": "三棵树BI数据接口",
+    "name": "演示事业部单兵分析报告",
+    "description": "演示BI数据接口",
     "config": {
-      "base_url": "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi",
+      "base_url": "${DATA_API_BASE_URL}",
       "auth_type": "url_param",
       "auth_key_name": "apikey",
-      "api_key": "05b65dfd5ee44f2a21f2312372b76f75",
+      "api_key": "${DATA_API_KEY}",
       "timeout": 15,
       "ssl_verify": false
     },

@@ -280,7 +280,7 @@ function MainLayout() {
       >
         {/* Logo 区域 */}
         <div className="sider-logo">
-          <img src="/assets/logo.svg" alt="三棵树" />
+          <img src="/assets/logo.svg" alt="Logo" />
           {!collapsed && <span>智能报告系统</span>}
         </div>
 
@@ -315,8 +315,8 @@ function MainLayout() {
       <Layout style={{ marginLeft: collapsed ? 80 : siderWidth, transition: 'margin-left 0.2s' }}>
         <Header className="main-header" style={{ left: collapsed ? 80 : siderWidth, transition: 'left 0.2s' }}>
           <div className="logo">
-            <img src="/assets/logo.svg" alt="三棵树" />
-            <span>三棵树AI智能单兵分析报告平台</span>
+            <img src="/assets/logo.svg" alt="Logo" />
+            <span>AI智能单兵分析报告平台</span>
           </div>
           <div className="user-info">
             <Dropdown menu={{ items: userMenuItems }} placement="bottomRight">

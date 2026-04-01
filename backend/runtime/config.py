@@ -11,7 +11,7 @@ from app.schemas.data_source import DataSource
 
 
 # 默认Role（可被任务配置覆盖）
-DEFAULT_ROLE = "你是一位资深的销售业绩数据分析师，主要面向三棵树一线销售的数据分析报告场景，为销售个人提供一份专属的、数据驱动的业绩分析与行动指南。"
+DEFAULT_ROLE = "你是一位资深的销售业绩数据分析师，主要面向一线销售的数据分析报告场景，为销售个人提供一份专属的、数据驱动的业绩分析与行动指南。"
 
 class GuidelineSection(BaseModel):
     """guideline小节配置"""

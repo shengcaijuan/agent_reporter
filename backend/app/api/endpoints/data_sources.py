@@ -49,12 +49,12 @@ def load_global_data_sources() -> List[Dict[str, Any]]:
             {
                 "id": "default",
                 "name": "默认数据源",
-                "description": "三棵树BI数据接口",
+                "description": "演示BI数据接口",
                 "config": {
-                    "base_url": "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi",
+                    "base_url": os.getenv("DATA_API_BASE_URL", "https://api.example.com/data"),
                     "auth_type": "url_param",
                     "auth_key_name": "apikey",
-                    "api_key": "05b65dfd5ee44f2a21f2312372b76f75",
+                    "api_key": os.getenv("DATA_API_KEY", ""),
                     "timeout": 15,
                     "ssl_verify": False
                 },
@@ -89,10 +89,10 @@ DEFAULT_DATA_SOURCE = {
     "type": "api",
     "name": "默认数据源",
     "config": {
-        "base_url": "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi",
+        "base_url": os.getenv("DATA_API_BASE_URL", "https://api.example.com/data"),
         "auth_type": "url_param",
         "auth_key_name": "apikey",
-        "api_key": "",
+        "api_key": os.getenv("DATA_API_KEY", ""),
         "timeout": 15,
         "ssl_verify": False
     },

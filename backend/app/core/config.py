@@ -2,7 +2,7 @@
 配置管理模块
 使用 Pydantic Settings 管理应用配置
 """
-from pydantic_settings import BaseSettings
+from pydantic_settings import BaseSettings, SettingsConfigDict
 from pydantic import field_validator
 from typing import List, Optional
 import os
@@ -46,19 +46,28 @@ class Settings(BaseSettings):
 
     # 数据源配置
     DATA_API_BASE_URL: str = ""
+    DATA_API_KEY: str = ""
 
     @field_validator("CORS_ORIGINS", mode="before")
     @classmethod
     def parse_cors_origins(cls, v):
         if isinstance(v, str):
-            return [origin.strip() for origin in v.split(",")]
+            # 先尝试 JSON 解析
+            try:
+                import json
+                return json.loads(v)
+            except json.JSONDecodeError:
+                # JSON 解析失败，用逗号分隔
+                return [origin.strip() for origin in v.split(",")]
         return v
 
-    class Config:
-        env_file = ".env"
-        env_file_encoding = "utf-8"
-        case_sensitive = True
-        extra = "ignore"  # 忽略未定义的字段
+    model_config = SettingsConfigDict(
+        env_file=".env",
+        env_file_encoding="utf-8",
+        case_sensitive=True,
+        extra="ignore",
+        env_parse_none_str="",  # 避免空字符串解析问题
+    )
 
 
 # 创建全局配置实例
