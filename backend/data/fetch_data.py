@@ -5,8 +5,8 @@ from typing import Optional, Dict, Any, List
 from aiohttp import ClientTimeout, ClientSession
 
 # 默认配置（向后兼容）
-DEFAULT_API_KEY = "05b65dfd5ee44f2a21f2312372b76f75"
-DEFAULT_BASE_URL = "https://apidev.skshu.com/test/skshu-bi-api/biapitoxt/getEmployeeIndexAi"
+DEFAULT_API_KEY = "data_api_key"
+DEFAULT_BASE_URL = "data_api_url"
 
 
 async def fetch_raw_data(
